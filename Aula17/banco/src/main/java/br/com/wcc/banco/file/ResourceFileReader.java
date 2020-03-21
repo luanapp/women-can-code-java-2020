@@ -5,8 +5,6 @@ import java.io.FileReader;
 import java.net.URL;
 
 public class ResourceFileReader {
-    private ResourceFileReader() {
-    }
 
     public FileReader getFileReaderFromResource(String fileName) throws FileNotFoundException {
         final URL resourceUrl = getClass().getClassLoader().getResource(fileName);

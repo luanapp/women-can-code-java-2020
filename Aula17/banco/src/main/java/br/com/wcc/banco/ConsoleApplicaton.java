@@ -1,36 +1,53 @@
 package br.com.wcc.banco;
 
+import br.com.wcc.banco.model.Cliente;
 import br.com.wcc.banco.servico.ClienteServico;
+import br.com.wcc.banco.servico.ExecutorOperacao;
 
 import java.util.Scanner;
 
-public class ConsoleApplicaton {
+class ConsoleApplicaton {
     private static final String FORMATO_OPCAO = "%d: %s";
-    private static final Operacao[] OPERACOES = Operacao.values();
+    private static final OpcaoOperacao[] OPERACOES = OpcaoOperacao.values();
 
     private Scanner scanner;
     private ClienteServico clienteServico;
+    private ExecutorOperacao executorOperacao;
+
+    public ConsoleApplicaton(ClienteServico clienteServico, ExecutorOperacao executorOperacao) {
+        this.clienteServico = clienteServico;
+        this.executorOperacao = executorOperacao;
+    }
 
     public void start() {
         scanner = new Scanner((System.in));
 
-//        for (; ; ) {
-//            System.out.println("Digite o id do cliente:");
-//            if (isNumeroValido()) continue;
-//
-//            Cliente cliente = clienteServico.buscaClientePorId(scanner.nextInt());
-//            if(cliente == null)
-//        }
-
-
-        Operacao operacao = selecionarOperacao();
-
-        System.out.println(operacao);
+        Cliente cliente = selecionarCliente();
+        OpcaoOperacao opcaoOperacao = selecionarOperacao();
+        final String resultadoOperacao = executorOperacao.executarOperacaoEmConta(null, null);
+        System.out.println(opcaoOperacao);
         scanner.close();
     }
 
-    private Operacao selecionarOperacao() {
-        Operacao operacao;
+    private Cliente selecionarCliente() {
+        Cliente cliente;
+        for (; ; ) {
+            System.out.println("Digite o id do cliente:");
+            if (isNumeroValido()) continue;
+
+            cliente = clienteServico.buscaClientePorId(scanner.nextInt());
+            if (cliente == null) {
+                System.out.println("Cliente não encontrado!");
+                continue;
+            }
+            break;
+        }
+        System.out.println("Cliente selecionado: " + cliente.getNome());
+        return cliente;
+    }
+
+    private OpcaoOperacao selecionarOperacao() {
+        OpcaoOperacao opcaoOperacao;
         for (; ; ) {
             exibeOpcoes();
 
@@ -42,12 +59,12 @@ public class ConsoleApplicaton {
                 continue;
             }
 
-            operacao = traduzirOpcaoOperacao(opcao);
+            opcaoOperacao = traduzirOpcaoOperacao(opcao);
 
-            System.out.println("Operação escolhida: " + operacao.getTexto());
+            System.out.println("Operação escolhida: " + opcaoOperacao.getTexto());
             break;
         }
-        return operacao;
+        return opcaoOperacao;
     }
 
     private boolean isNumeroValido() {
@@ -60,14 +77,14 @@ public class ConsoleApplicaton {
 
     private void exibeOpcoes() {
         System.out.println("Selecione uma operação:");
-        for (int i = 0; i < Operacao.values().length; i++) {
-            Operacao operacao = OPERACOES[i];
-            System.out.println(String.format(FORMATO_OPCAO, i + 1, operacao.getTexto()));
+        for (int i = 0; i < OpcaoOperacao.values().length; i++) {
+            OpcaoOperacao opcaoOperacao = OPERACOES[i];
+            System.out.println(String.format(FORMATO_OPCAO, i + 1, opcaoOperacao.getTexto()));
         }
-        System.out.println(String.format(FORMATO_OPCAO, Operacao.values().length + 1, "Sair"));
+        System.out.println(String.format(FORMATO_OPCAO, OpcaoOperacao.values().length + 1, "Sair"));
     }
 
-    private Operacao traduzirOpcaoOperacao(int opcao) {
+    private OpcaoOperacao traduzirOpcaoOperacao(int opcao) {
         if (opcao == OPERACOES.length + 1) {
             System.out.println("Saindo...");
             System.exit(0);
@@ -76,13 +93,14 @@ public class ConsoleApplicaton {
         return OPERACOES[opcao - 1];
     }
 
-    private enum Operacao {
+    private enum OpcaoOperacao {
         SAQUE("Saque"),
         SALDO("Saldo"),
         DEPOSITO("Depósito");
 
         private String texto;
-        Operacao(String texto) {
+
+        OpcaoOperacao(String texto) {
             this.texto = texto;
         }
 
