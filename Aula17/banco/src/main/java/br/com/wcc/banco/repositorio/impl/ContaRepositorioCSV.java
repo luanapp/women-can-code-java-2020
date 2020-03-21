@@ -13,7 +13,12 @@ public class ContaRepositorioCSV implements ContaRepositorio {
     private static final String CONTAS_CSV = "contas.csv";
 
     @Override
-    public Conta buscarContaPorId(Integer id) {
+    public void salvar(Conta conta) {
+
+    }
+
+    @Override
+    public Conta buscarPorId(Integer id) {
         try {
             final ResourceFileReader resourceFileReader = new ResourceFileReader();
             FileReader file = resourceFileReader.getFileReaderFromResource(CONTAS_CSV);
@@ -30,11 +35,5 @@ public class ContaRepositorioCSV implements ContaRepositorio {
         } catch (IOException ex) {
             return null;
         }
-
-    }
-
-    @Override
-    public void salvarConta(Conta conta) {
-
     }
 }

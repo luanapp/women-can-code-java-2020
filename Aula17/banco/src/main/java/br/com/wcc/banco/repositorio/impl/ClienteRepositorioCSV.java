@@ -14,8 +14,9 @@ public class ClienteRepositorioCSV implements ClienteRepositorio {
 
     private static final String CLIENTES_CSV = "clientes.csv";
 
+
     @Override
-    public Cliente buscaClientePorId(Integer id) {
+    public Cliente buscarPorId(Integer id) {
         try {
             final ResourceFileReader resourceFileReader = new ResourceFileReader();
             FileReader file = resourceFileReader.getFileReaderFromResource(CLIENTES_CSV);
@@ -35,5 +36,10 @@ public class ClienteRepositorioCSV implements ClienteRepositorio {
         } catch (IOException ex) {
             return null;
         }
+    }
+
+    @Override
+    public void salvar(Cliente entidade) {
+
     }
 }

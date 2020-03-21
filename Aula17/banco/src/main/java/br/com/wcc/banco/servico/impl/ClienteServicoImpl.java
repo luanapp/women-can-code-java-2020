@@ -14,6 +14,6 @@ public class ClienteServicoImpl implements ClienteServico {
 
     @Override
     public Cliente buscaClientePorId(Integer id) {
-        return clienteRepositorio.buscaClientePorId(id);
+        return clienteRepositorio.buscarPorId(id);
     }
 }
