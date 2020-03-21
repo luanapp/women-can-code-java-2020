@@ -29,14 +29,14 @@ public class ConsoleApplicaton {
         Cliente cliente = selecionarCliente();
         Conta conta = contaServico.buscarContaPorId(cliente.getIdConta());
 
-        for(;;) {
+        for (; ; ) {
             OpcaoOperacao opcaoOperacao = selecionarOperacao();
             final String resultadoOperacao =
                     executorOperacao.executarOperacaoEmConta(null, null);
             System.out.println(resultadoOperacao);
             System.out.println("\nDeseja executar outra operaçãp? (S ou N)");
             final String continuar = scanner.next();
-            if(continuar.equals("N")) {
+            if (continuar.equalsIgnoreCase("N")) {
                 scanner.close();
                 System.exit(0);
             }

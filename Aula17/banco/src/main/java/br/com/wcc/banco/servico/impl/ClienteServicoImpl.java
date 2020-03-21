@@ -5,6 +5,7 @@ import br.com.wcc.banco.repositorio.ClienteRepositorio;
 import br.com.wcc.banco.servico.ClienteServico;
 
 public class ClienteServicoImpl implements ClienteServico {
+
     private ClienteRepositorio clienteRepositorio;
 
     public ClienteServicoImpl(ClienteRepositorio clienteRepositorio) {
