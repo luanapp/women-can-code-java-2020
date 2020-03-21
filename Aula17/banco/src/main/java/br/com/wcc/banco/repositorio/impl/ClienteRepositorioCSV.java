@@ -8,6 +8,7 @@ import org.apache.commons.csv.CSVRecord;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public class ClienteRepositorioCSV implements ClienteRepositorio {
 
@@ -25,6 +26,8 @@ public class ClienteRepositorioCSV implements ClienteRepositorio {
                 if (clientId.equals(id)) {
                     String nome = csvRecord.get("Nome");
                     Integer idConta = Integer.parseInt(csvRecord.get("idConta"));
+                    BigDecimal salario = new BigDecimal(csvRecord.get("Salario"));
+                    //TODO inserir salario no cliente
                     return new Cliente(id, nome, idConta);
                 }
             }
