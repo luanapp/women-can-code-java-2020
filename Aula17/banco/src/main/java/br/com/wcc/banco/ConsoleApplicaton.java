@@ -1,21 +1,25 @@
 package br.com.wcc.banco;
 
 import br.com.wcc.banco.model.Cliente;
+import br.com.wcc.banco.model.Conta;
 import br.com.wcc.banco.servico.ClienteServico;
+import br.com.wcc.banco.servico.ContaServico;
 import br.com.wcc.banco.servico.ExecutorOperacao;
 
 import java.util.Scanner;
 
-class ConsoleApplicaton {
+public class ConsoleApplicaton {
     private static final String FORMATO_OPCAO = "%d: %s";
     private static final OpcaoOperacao[] OPERACOES = OpcaoOperacao.values();
 
     private Scanner scanner;
     private ClienteServico clienteServico;
+    private ContaServico contaServico;
     private ExecutorOperacao executorOperacao;
 
-    public ConsoleApplicaton(ClienteServico clienteServico, ExecutorOperacao executorOperacao) {
+    public ConsoleApplicaton(ClienteServico clienteServico, ContaServico contaServico, ExecutorOperacao executorOperacao) {
         this.clienteServico = clienteServico;
+        this.contaServico = contaServico;
         this.executorOperacao = executorOperacao;
     }
 
@@ -23,9 +27,11 @@ class ConsoleApplicaton {
         scanner = new Scanner((System.in));
 
         Cliente cliente = selecionarCliente();
+        Conta conta = contaServico.buscarContaPorId(cliente.getIdConta());
         OpcaoOperacao opcaoOperacao = selecionarOperacao();
-        final String resultadoOperacao = executorOperacao.executarOperacaoEmConta(null, null);
-        System.out.println(opcaoOperacao);
+        final String resultadoOperacao =
+                executorOperacao.executarOperacaoEmConta(null, null);
+        System.out.println(resultadoOperacao);
         scanner.close();
     }
 

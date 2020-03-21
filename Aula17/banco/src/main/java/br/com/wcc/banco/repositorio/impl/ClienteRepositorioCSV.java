@@ -1,7 +1,8 @@
-package br.com.wcc.banco.repositorio;
+package br.com.wcc.banco.repositorio.impl;
 
 import br.com.wcc.banco.file.ResourceFileReader;
 import br.com.wcc.banco.model.Cliente;
+import br.com.wcc.banco.repositorio.ClienteRepositorio;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
@@ -18,14 +19,13 @@ public class ClienteRepositorioCSV implements ClienteRepositorio {
             final ResourceFileReader resourceFileReader = new ResourceFileReader();
             FileReader file = resourceFileReader.getFileReaderFromResource(CLIENTES_CSV);
 
-
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader().parse(file);
             for (CSVRecord csvRecord : records) {
                 Integer clientId = Integer.parseInt(csvRecord.get("Id"));
                 if (clientId.equals(id)) {
                     String nome = csvRecord.get("Nome");
                     Integer idConta = Integer.parseInt(csvRecord.get("idConta"));
-                    return new Cliente(id, nome);
+                    return new Cliente(id, nome, idConta);
                 }
             }
             return null;
