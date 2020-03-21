@@ -28,11 +28,20 @@ public class ConsoleApplicaton {
 
         Cliente cliente = selecionarCliente();
         Conta conta = contaServico.buscarContaPorId(cliente.getIdConta());
-        OpcaoOperacao opcaoOperacao = selecionarOperacao();
-        final String resultadoOperacao =
-                executorOperacao.executarOperacaoEmConta(null, null);
-        System.out.println(resultadoOperacao);
-        scanner.close();
+
+        for(;;) {
+            OpcaoOperacao opcaoOperacao = selecionarOperacao();
+            final String resultadoOperacao =
+                    executorOperacao.executarOperacaoEmConta(null, null);
+            System.out.println(resultadoOperacao);
+            System.out.println("\nDeseja executar outra operaçãp? (S ou N)");
+            final String continuar = scanner.next();
+            if(continuar.equals("N")) {
+                scanner.close();
+                System.exit(0);
+            }
+            System.out.println("\n");
+        }
     }
 
     private Cliente selecionarCliente() {
@@ -93,6 +102,7 @@ public class ConsoleApplicaton {
     private OpcaoOperacao traduzirOpcaoOperacao(int opcao) {
         if (opcao == OPERACOES.length + 1) {
             System.out.println("Saindo...");
+            scanner.close();
             System.exit(0);
         }
 
