@@ -4,9 +4,9 @@ import br.com.wcc.banco.model.Conta;
 import br.com.wcc.banco.model.Operacao;
 
 public interface ExecutorOperacao {
-    // Na implementação, quem salva informações na conta é o ContaRepositório
+    // Na implementação, quem salva informações na conta é o ContaServico
     // -> A classe que implementa ExecutorOperacao tem como propriedade de instancia
-    // ContaRepositorio
+    // ContaServico
 
     /**
      * Executa uma determida operação em uma conta, salva o resultado na conta fornecida
