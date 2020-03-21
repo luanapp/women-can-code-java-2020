@@ -1,35 +1,23 @@
 package br.com.wcc.banco.injector;
 
-import br.com.wcc.banco.repositorio.ClienteRepositorio;
-import br.com.wcc.banco.repositorio.ContaRepositorio;
-import br.com.wcc.banco.repositorio.impl.ClienteRepositorioCSV;
-import br.com.wcc.banco.repositorio.impl.ContaRepositorioCSV;
+import br.com.wcc.banco.repositorio.Repositorio;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class RepositoryInjector {
 
-    public ClienteRepositorio getClienteRepositorio(Type type) {
-        try {
-            return getRepositorio(type, ClienteRepositorioCSV.class);
-        } catch (IllegalAccessException | InstantiationException e) {
-            return null;
-        }
-    }
 
-    public ContaRepositorio getContaRepositorio(Type type) {
+    public <T extends Repositorio> T getRepositorio(Type type, Class<T> clazz) {
         try {
-            return getRepositorio(type, ContaRepositorioCSV.class);
-        } catch (IllegalAccessException | InstantiationException e) {
+            switch (type) {
+                case CSV:
+                    return clazz.getDeclaredConstructor().newInstance();
+                case DATABASE:
+                default:
+                    return null;
+            }
+        } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
             return null;
-        }
-    }
-
-    private <T> T getRepositorio(Type type, Class<T> clazz) throws IllegalAccessException, InstantiationException {
-        switch (type) {
-            case CSV:
-                return clazz.newInstance();
-            case DATABASE:
-            default:
-                return null;
         }
     }
 

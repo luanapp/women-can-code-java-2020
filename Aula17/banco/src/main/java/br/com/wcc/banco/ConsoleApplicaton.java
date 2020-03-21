@@ -27,7 +27,7 @@ public class ConsoleApplicaton {
         scanner = new Scanner((System.in));
 
         Cliente cliente = selecionarCliente();
-        Conta conta = contaServico.buscarContaPorId(cliente.getIdConta());
+        Conta conta = contaServico.buscarPorId(cliente.getIdConta());
 
         for (; ; ) {
             OpcaoOperacao opcaoOperacao = selecionarOperacao();
@@ -50,7 +50,7 @@ public class ConsoleApplicaton {
             System.out.println("Digite o id do cliente:");
             if (isNumeroValido()) continue;
 
-            cliente = clienteServico.buscaClientePorId(scanner.nextInt());
+            cliente = clienteServico.buscarPorId(scanner.nextInt());
             if (cliente == null) {
                 System.out.println("Cliente não encontrado!");
                 continue;

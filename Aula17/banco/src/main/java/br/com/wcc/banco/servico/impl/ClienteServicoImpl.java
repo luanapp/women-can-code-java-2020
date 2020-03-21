@@ -13,7 +13,11 @@ public class ClienteServicoImpl implements ClienteServico {
     }
 
     @Override
-    public Cliente buscaClientePorId(Integer id) {
+    public Cliente buscarPorId(Integer id) {
         return clienteRepositorio.buscarPorId(id);
+    }
+
+    @Override
+    public void salvar(Cliente entidade) {
     }
 }

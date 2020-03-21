@@ -12,12 +12,12 @@ public class ContaServicoImpl implements ContaServico {
     }
 
     @Override
-    public Conta buscarContaPorId(Integer id) {
+    public Conta buscarPorId(Integer id) {
         return contaRepositorio.buscarPorId(id);
     }
 
     @Override
-    public void salvarConta(Conta conta) {
+    public void salvar(Conta conta) {
 
     }
 }
