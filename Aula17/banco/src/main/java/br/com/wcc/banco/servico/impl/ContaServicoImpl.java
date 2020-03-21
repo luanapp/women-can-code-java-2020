@@ -15,4 +15,9 @@ public class ContaServicoImpl implements ContaServico {
     public Conta buscarContaPorId(Integer id) {
         return contaRepositorio.buscarContaPorId(id);
     }
+
+    @Override
+    public void salvarConta(Conta conta) {
+
+    }
 }

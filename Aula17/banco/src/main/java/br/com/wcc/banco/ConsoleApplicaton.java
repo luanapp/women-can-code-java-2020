@@ -17,13 +17,13 @@ public class ConsoleApplicaton {
     private ContaServico contaServico;
     private ExecutorOperacao executorOperacao;
 
-    public ConsoleApplicaton(ClienteServico clienteServico, ContaServico contaServico, ExecutorOperacao executorOperacao) {
+    ConsoleApplicaton(ClienteServico clienteServico, ContaServico contaServico, ExecutorOperacao executorOperacao) {
         this.clienteServico = clienteServico;
         this.contaServico = contaServico;
         this.executorOperacao = executorOperacao;
     }
 
-    public void start() {
+    void start() {
         scanner = new Scanner((System.in));
 
         Cliente cliente = selecionarCliente();
