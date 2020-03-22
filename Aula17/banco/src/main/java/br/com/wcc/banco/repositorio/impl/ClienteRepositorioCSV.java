@@ -1,6 +1,6 @@
 package br.com.wcc.banco.repositorio.impl;
 
-import br.com.wcc.banco.file.ResourceFileReader;
+import br.com.wcc.banco.file.ResourceFile;
 import br.com.wcc.banco.model.Cliente;
 import br.com.wcc.banco.repositorio.ClienteRepositorio;
 import org.apache.commons.csv.CSVFormat;
@@ -11,25 +11,26 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 public class ClienteRepositorioCSV implements ClienteRepositorio {
-
     private static final String CLIENTES_CSV = "clientes.csv";
 
 
     @Override
     public Cliente buscarPorId(Integer id) {
         try {
-            final ResourceFileReader resourceFileReader = new ResourceFileReader();
-            FileReader file = resourceFileReader.getFileReaderFromResource(CLIENTES_CSV);
+            final ResourceFile resourceFile = new ResourceFile();
+            FileReader file = resourceFile.getFileReaderFromResource(CLIENTES_CSV);
 
-            Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader().parse(file);
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT
+                    .withHeader(Headers.class)
+                    .withFirstRecordAsHeader()
+                    .parse(file);
             for (CSVRecord csvRecord : records) {
-                Integer clientId = Integer.parseInt(csvRecord.get("Id"));
+                Integer clientId = Integer.parseInt(csvRecord.get(Headers.Id));
                 if (clientId.equals(id)) {
-                    String nome = csvRecord.get("Nome");
-                    Integer idConta = Integer.parseInt(csvRecord.get("idConta"));
-                    BigDecimal salario = new BigDecimal(csvRecord.get("Salario"));
-                    //TODO inserir salario no cliente
-                    return new Cliente(id, nome, idConta);
+                    String nome = csvRecord.get(Headers.Nome);
+                    Integer idConta = Integer.parseInt(csvRecord.get(Headers.idConta));
+                    BigDecimal salario = new BigDecimal(csvRecord.get(Headers.Salario));
+                    return new Cliente(id, nome, idConta, salario);
                 }
             }
             return null;
@@ -40,6 +41,12 @@ public class ClienteRepositorioCSV implements ClienteRepositorio {
 
     @Override
     public void salvar(Cliente entidade) {
+    }
 
+    private enum Headers {
+        Id,
+        Nome,
+        idConta,
+        Salario;
     }
 }

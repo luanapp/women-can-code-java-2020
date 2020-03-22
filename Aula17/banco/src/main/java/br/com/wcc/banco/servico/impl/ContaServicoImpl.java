@@ -18,6 +18,6 @@ public class ContaServicoImpl implements ContaServico {
 
     @Override
     public void salvar(Conta conta) {
-
+        contaRepositorio.salvar(conta);
     }
 }
