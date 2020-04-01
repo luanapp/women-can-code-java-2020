@@ -2,8 +2,8 @@ package br.com.wcc.banco;
 
 import br.com.wcc.banco.injector.RepositoryInjector;
 import br.com.wcc.banco.injector.ServiceInjector;
-import br.com.wcc.banco.repositorio.impl.ClienteRepositorioCSV;
-import br.com.wcc.banco.repositorio.impl.ContaRepositorioCSV;
+import br.com.wcc.banco.repositorio.impl.csv.ClienteRepositorioCSV;
+import br.com.wcc.banco.repositorio.impl.csv.ContaRepositorioCSV;
 import br.com.wcc.banco.servico.ClienteServico;
 import br.com.wcc.banco.servico.ContaServico;
 import br.com.wcc.banco.servico.impl.ClienteServicoImpl;
@@ -15,8 +15,8 @@ public class Application {
 
 
     public static void main(String[] args) {
-        RepositoryInjector repositoryInjector = new RepositoryInjector();
-        ServiceInjector serviceInjector = new ServiceInjector();
+        final RepositoryInjector repositoryInjector = new RepositoryInjector();
+        final ServiceInjector serviceInjector = new ServiceInjector();
 
         final RepositoryInjector.Type type = CSV;
         ClienteServico clienteServico = serviceInjector.getServico(ClienteServicoImpl.class,

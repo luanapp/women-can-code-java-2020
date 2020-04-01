@@ -34,7 +34,7 @@ public class ConsoleApplicaton {
         for (; ; ) {
             final Operacao.Type tipoOperacao = selecionarOperacao();
             final BigDecimal resultadoOperacao = executarOperacao(tipoOperacao, cliente, conta);
-            System.out.println(resultadoOperacao);
+            System.out.println(String.format("Seu saldo atual depois do %s é de %.2f", tipoOperacao.getTexto(), resultadoOperacao));
             System.out.println("\nDeseja executar outra operaçãp? (S ou N)");
 
             final String continuar = scanner.next();

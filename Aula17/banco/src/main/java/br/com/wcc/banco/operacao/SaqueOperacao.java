@@ -16,7 +16,9 @@ public class SaqueOperacao extends Operacao<BigDecimal, BigDecimal> {
 
 
     @Override
-    public BigDecimal executar(Cliente cliente, Conta conta, BigDecimal parametro) {
-        return null;
+    public BigDecimal executar(Cliente cliente, Conta conta, BigDecimal saque) {
+        conta.setSaldo(conta.getSaldo().subtract(saque));
+        contaServico.salvar(conta);
+        return conta.getSaldo();
     }
 }

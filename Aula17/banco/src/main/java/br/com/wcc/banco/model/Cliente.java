@@ -22,4 +22,8 @@ public class Cliente {
     public String getNome() {
         return nome;
     }
+
+    public Cliente(BigDecimal salario) {
+        this.salario = salario;
+    }
 }

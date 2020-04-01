@@ -42,7 +42,7 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                            <mainClass>br.com.wcc.Main</mainClass>
+                            <mainClass>br.com.wcc.banco.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
